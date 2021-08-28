@@ -4,7 +4,6 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f8f6ff',
     },
     header:{
         height: 60,
@@ -15,9 +14,9 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 18
     },
     headerMessage:{
-        color: '#e2e0ea',
-        fontSize: 15,
-        fontWeight: 'bold'
+        color: '#c2c0e0',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
     buttonGoToStatusText:{
         color: '#f8f6ff',
@@ -50,13 +49,7 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         fontStyle: 'italic'
     },
-
-
-    line:{
-        width: '100%',
-        height: 2,
-        backgroundColor: '#e6e6ef'
-    },
+    
 
     statusContainer:{
         flexDirection: 'row',

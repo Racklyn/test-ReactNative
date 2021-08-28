@@ -1,12 +1,21 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Switch} from 'react-native';
 import {Feather} from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native';
 
 import { styles } from './styles';
 
+import { Line } from '../../components/Line';
+
 export function Home(){
 
+    const navigation = useNavigation()
+
     const [serviceStatus, setServiceStatus] = useState(true)
+
+    function goToStatusScreen(){
+        navigation.navigate('Status')
+    }
 
     return (
         <View style={styles.container}>
@@ -14,7 +23,7 @@ export function Home(){
             <View style={styles.header}>
                 <Text style={styles.headerMessage}>Olá, bem-vindo</Text>
                 <TouchableOpacity
-                    
+                    onPress={goToStatusScreen}
                 >
                     <Text style={styles.buttonGoToStatusText}>Status</Text>
                 </TouchableOpacity>
@@ -29,7 +38,7 @@ export function Home(){
                 </View>
             </View>
 
-            <View style={styles.line}/>
+            <Line/>
 
             <View style={styles.statusContainer}>
                 <View>

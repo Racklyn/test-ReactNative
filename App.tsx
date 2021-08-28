@@ -4,7 +4,7 @@ import {StatusBar, Text, View } from 'react-native';
 
 import {styles} from './styles'
 
-import { Home } from './src/pages/Home';
+import { Routes } from './src/routes';
 
 export default function App() {
   return (
@@ -14,7 +14,7 @@ export default function App() {
         backgroundColor='#000065'
         translucent
       />
-      <Home/>
+      <Routes/>
     </View>
   );
 }
