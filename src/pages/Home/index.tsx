@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, Switch} from 'react-native';
 import {Feather} from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native';
@@ -6,15 +6,28 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from './styles';
 
 import { Line } from '../../components/Line';
+import { IntervalBox } from '../../components/IntervalBox';
+
+import { useMain } from '../../hooks/main';
+
+
+let counterTimeOut: NodeJS.Timeout
 
 export function Home(){
 
     const navigation = useNavigation()
 
-    const [serviceStatus, setServiceStatus] = useState(true)
+    const {
+        comInterval,
+        setComInterval,
+        serviceStatus,
+        setServiceStatus,
+        isOnline
+    } = useMain()
+
 
     function goToStatusScreen(){
-        navigation.navigate('Status')
+        navigation.navigate("Status")
     }
 
     return (
@@ -34,7 +47,11 @@ export function Home(){
                 <Feather name="compass" size={60} color="#2b2a8c" />
                 <View style={styles.heading}>
                     <Text style={styles.title}>My GPS - Tracking</Text>
-                    <Text style={styles.onlineText}>Online</Text>
+                    {
+                        isOnline
+                        ?(<Text style={styles.onlineText}>Online</Text>)
+                        :(<Text style={styles.offlineText}>Offline</Text>)
+                    }
                 </View>
             </View>
 
@@ -57,18 +74,16 @@ export function Home(){
             <View style={styles.intervalContainer}>
                 <Text style={styles.strongText}>Intervalo de comunicação</Text>
                 <View style={styles.intervals}>
-                    <TouchableOpacity style={[styles.intervalBox, styles.intervalBoxSelected]}>
-                        <Text style={[styles.intervalBoxText, {color: '#45504d'}]}>10s</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.intervalBox]}>
-                        <Text style={[styles.intervalBoxText]}>5s</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.intervalBox]}>
-                        <Text style={[styles.intervalBoxText]}>3s</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[styles.intervalBox]}>
-                        <Text style={[styles.intervalBoxText]}>1s</Text>
-                    </TouchableOpacity>
+                    {
+                        [10,5,3,1].map((time)=>(
+                            <IntervalBox
+                                key={time}
+                                time={time}
+                                isSelected={time===comInterval}
+                                onPress={()=>{setComInterval(time)}}
+                            />
+                        ))
+                    }
                     
                 </View>
             </View>

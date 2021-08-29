@@ -6,6 +6,8 @@ import {styles} from './styles'
 
 import { Routes } from './src/routes';
 
+import { MainProvider } from './src/hooks/main';
+
 export default function App() {
   return (
     <View style={styles.container}>
@@ -14,7 +16,9 @@ export default function App() {
         backgroundColor='#000065'
         translucent
       />
-      <Routes/>
+      <MainProvider>
+        <Routes/>
+      </MainProvider>
     </View>
   );
 }
