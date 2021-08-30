@@ -1,14 +1,33 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity, FlatList} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { styles } from './styles';
 
 import { Line } from '../../components/Line';
+import { PackageItem } from '../../components/PackageItem';
+
+import { Package, useMain } from '../../hooks/main';
+
 
 export function Status(){
 
     const navigation = useNavigation()
+
+    const {
+        savedPackages,
+        currentPackage
+    } = useMain()
+
+    const [packagesList, setPackagesList] = useState<Package[]>([
+        currentPackage,
+        ...savedPackages.sort(function(a,b){return new Date(b.time).getTime() - new Date(b.time).getTime()})
+    ])
+
+    useEffect(()=>{
+        let ordered = savedPackages.sort(function(a,b){return new Date(b.time).getTime() - new Date(a.time).getTime()})
+        setPackagesList([currentPackage, ...ordered])
+    },[currentPackage])
 
     return (
 
@@ -25,22 +44,20 @@ export function Status(){
             </View>
 
             <FlatList
-                data={[1,2,3]}
+                data={packagesList}
                 style={styles.packagesList}
-                keyExtractor={item=>item.toString()}
+                keyExtractor={pk=>pk.pkId}
                 ListHeaderComponent = {()=> <Line/>}
                 ItemSeparatorComponent = {()=> <Line/>}
                 ListFooterComponent = {()=> <Line/>}
                 contentContainerStyle={{paddingBottom: 68}}
 
-                renderItem={(item)=>(
-                    <View style={styles.packageItem}>
-                        <View>
-                            <Text style={styles.strongText}>Pacote ID: XXXXX</Text>
-                            <Text style={styles.lightText}>Pendente sincronizar</Text>
-                        </View>
-                        <Text style={styles.syncTime}>13:12</Text>
-                    </View>
+                renderItem={({item:pk})=>(
+                    <PackageItem
+                        packageID = {pk.pkId}
+                        isSynchronized = {pk.isSynchronized}
+                        time = {pk.time}
+                    />
                 )}
             />
 

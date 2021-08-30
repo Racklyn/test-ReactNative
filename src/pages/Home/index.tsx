@@ -27,7 +27,12 @@ export function Home(){
 
 
     function goToStatusScreen(){
+
+        //O trecho abaixo mostra que há um erro, porém está exatamente conforme a documentação do ...
+        //... useNavigation em https://reactnavigation.org/docs/navigation-prop#navigate ... 
+        //... e está funcionando normalmente sem apresentar erro algum durante a execução:
         navigation.navigate("Status")
+
     }
 
     return (

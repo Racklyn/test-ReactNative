@@ -17,8 +17,6 @@ async function getLocation(){
 
         let location = await Location.getCurrentPositionAsync({});
 
-        console.log(location);
-
         return location;
 
 

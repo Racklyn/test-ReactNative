@@ -31,21 +31,4 @@ export const styles = StyleSheet.create({
     packagesList:{
         padding: 18
     },
-    packageItem:{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingVertical: 12
-    },
-    strongText:{
-        fontSize: 19,
-        color: '#4c5553',
-        marginBottom: 4
-    },
-    lightText:{
-        color: '#68706e'
-    },
-    syncTime:{
-        color: '#78807e',
-        fontSize: 16
-    }
 });
